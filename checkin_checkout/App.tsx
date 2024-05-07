@@ -29,43 +29,39 @@ export default function App() {
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selecteddayofweek, setSelectedDayofWeek] = useState<string>("");
 
-  useEffect(() => {
-    setSelectedDate(selectedDate);
-    getBirthDay;
-    handleDay;
-  }, []);
-
   const handleDay = (day: any) => {
     const { dateString } = day;
     const dateObject = new Date(dateString);
     const dayOfWeek =
-      dateObject.getDay() + 2 === 8 ? "chủ nhật" : dateObject.getDay() + 2;
+      dateObject.getDay() + 2 === 8
+        ? "Chủ nhật"
+        : "Thứ " + Math.abs(dateObject.getDay() + 2);
     const dayOfMonth = dateObject.getDate();
     const month = dateObject.getMonth() + 1;
     const year = dateObject.getFullYear();
 
-    const date = `Thứ ${dayOfWeek} ngày ${dayOfMonth} tháng ${month} năm ${year}`;
+    const date = `${dayOfWeek} ngày ${dayOfMonth} tháng ${month} năm ${year}`;
     setSelectedDayofWeek(date);
     setSelectedDate(dateString);
   };
+
   const getBirthDay = () => {
     const [year, month, day] = data.NgaySinh.split("-");
     const birthdayUser = `${day}/${month}/${year}`;
     return birthdayUser;
   };
 
+  //đánh dấu trên lịch
   const markedDates: { [key: string]: any } = data.BangChamCong.reduce(
     (accumulator: any, item) => {
       const attendance = item.ChamCongTrongNgay;
-      const lastCheck = new Date(attendance[attendance.length - 1].TimeCheck);
-      const firstCheck = new Date(attendance[0].TimeCheck);
-
-      const timeDifference = Math.abs(
-        lastCheck.getTime() - firstCheck.getTime()
-      );
-      const hoursDifference = timeDifference / (1000 * 60 * 60);
 
       if (item.ChamCongTrongNgay.length > 1) {
+        const lastCheck = new Date(attendance[attendance.length - 1].TimeCheck);
+        const firstCheck = new Date(attendance[0].TimeCheck);
+
+        const workTime = Math.abs(lastCheck.getTime() - firstCheck.getTime());
+        const hoursDifference = workTime / (1000 * 60 * 60);
         // check đủ
         accumulator[item.Ngay] = {
           marked: true,
@@ -82,6 +78,7 @@ export default function App() {
           selectedColor: "orange",
         };
       } else {
+        //không check
         accumulator[item.Ngay] = {
           marked: true,
           dotColor: "red",
@@ -93,6 +90,12 @@ export default function App() {
     },
     {}
   );
+
+  useEffect(() => {
+    setSelectedDate(selectedDate);
+    getBirthDay;
+    handleDay;
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -163,6 +166,9 @@ export default function App() {
             disableTouchEvent: true,
           },
         }}
+        theme={{
+          selectedDayBackgroundColor: "",
+        }}
         style={styles.calender}
       />
       <View style={styles.boxDetailCheck}>
@@ -170,8 +176,8 @@ export default function App() {
           Chi tiết checkin checkout
         </Text>
         <Text>{selecteddayofweek}</Text>
-        {data.BangChamCong.map((item) => {
-          if (item.Ngay === selectedDate) {
+        {data.BangChamCong.filter((item) => item.Ngay === selectedDate).map(
+          (item) => {
             return item.ChamCongTrongNgay.map((check, index) => {
               const checkType = check.Loai === 1 ? "CheckIn" : "CheckOut";
               return (
@@ -186,8 +192,7 @@ export default function App() {
               );
             });
           }
-          return null;
-        })}
+        )}
       </View>
     </View>
   );
@@ -204,6 +209,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
+    borderRadius: 5,
   },
   boxDetailCheck: {
     width: "90%",
@@ -215,6 +221,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     gap: 5,
     alignItems: "center",
+    borderRadius: 5,
   },
   txtNote: {
     fontSize: 10,
@@ -359,6 +366,78 @@ const data: EmployeeData = {
         {
           Loai: 2,
           TimeCheck: "2023-03-05 15:20:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-06",
+      ChamCongTrongNgay: [],
+    },
+    {
+      Ngay: "2024-05-07",
+      ChamCongTrongNgay: [],
+    },
+    {
+      Ngay: "2024-05-08",
+      ChamCongTrongNgay: [],
+    },
+    {
+      Ngay: "2024-05-09",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-09 08:20:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-10",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-10 08:20:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-11",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-11 08:20:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-11 12:00:00",
+        },
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-11 13:00:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-11 17:30:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-12",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-12 08:20:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-12 12:00:00",
+        },
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-12 13:00:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-12 17:30:00",
         },
       ],
     },
