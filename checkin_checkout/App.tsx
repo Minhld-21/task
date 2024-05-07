@@ -1,8 +1,15 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  SafeAreaView,
+  FlatList,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 LocaleConfig.locales["fr"] = {
   monthNames: [
@@ -98,12 +105,11 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Ionicons name="chevron-back" size={24} color="black" />
         <Text style={styles.txtHeader}>Bảng checkin checkout</Text>
       </View>
-
       <View style={styles.boxIn4User}>
         <Image
           source={require("./assets/image.jpg")}
@@ -178,7 +184,7 @@ export default function App() {
           },
         }}
         theme={{
-          selectedDayBackgroundColor: "",
+          selectedDayBackgroundColor: "#7FC7D9",
         }}
         style={styles.calender}
       />
@@ -187,9 +193,27 @@ export default function App() {
           Chi tiết checkin checkout
         </Text>
         <Text>{selecteddayofweek}</Text>
-        {data.BangChamCong.filter((item) => item.Ngay === selectedDate).map(
-          (item) => {
-            return item.ChamCongTrongNgay.map((check, index) => {
+      </View>
+      <FlatList
+        data={data.BangChamCong.filter((item) => item.Ngay === selectedDate)}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View
+            style={{
+              width: "90%",
+              height: "auto",
+              backgroundColor: "#DCF2F1",
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              alignSelf: "center",
+              gap: 5,
+              alignItems: "center",
+              marginBottom: 5,
+              borderBottomLeftRadius: 5,
+              borderBottomRightRadius: 5,
+            }}
+          >
+            {item.ChamCongTrongNgay.map((check, index) => {
               const checkType = check.Loai === 1 ? "CheckIn" : "CheckOut";
               return (
                 <View style={styles.boxCheck} key={index}>
@@ -201,11 +225,11 @@ export default function App() {
                   </Text>
                 </View>
               );
-            });
-          }
+            })}
+          </View>
         )}
-      </View>
-    </View>
+      />
+    </SafeAreaView>
   );
 }
 
@@ -232,7 +256,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     gap: 5,
     alignItems: "center",
-    borderRadius: 5,
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
   },
   txtNote: {
     fontSize: 10,
