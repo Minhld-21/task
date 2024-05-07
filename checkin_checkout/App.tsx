@@ -65,9 +65,9 @@ export default function App() {
         // check đủ
         accumulator[item.Ngay] = {
           marked: true,
-          dotColor: hoursDifference >= 8 ? "green" : "orange",
+          dotColor: hoursDifference >= 8 ? "green" : "#874CCC",
           selected: true,
-          selectedColor: hoursDifference >= 8 ? "green" : "orange",
+          selectedColor: hoursDifference >= 8 ? "green" : "#874CCC",
         };
       } else if (item.ChamCongTrongNgay.length === 1) {
         //check thiếu
@@ -133,6 +133,17 @@ export default function App() {
             }}
           ></View>
           <Text style={styles.txtNote}>Check đủ</Text>
+        </View>
+        <View style={styles.circle}>
+          <View
+            style={{
+              width: 20,
+              height: 20,
+              borderRadius: 100,
+              backgroundColor: "#874CCC",
+            }}
+          ></View>
+          <Text style={styles.txtNote}>Check không đạt</Text>
         </View>
         <View style={styles.circle}>
           <View
@@ -438,6 +449,32 @@ const data: EmployeeData = {
         {
           Loai: 2,
           TimeCheck: "2024-05-12 17:30:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-13",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-13 08:20:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-13 16:00:00",
+        },
+      ],
+    },
+    {
+      Ngay: "2024-05-14",
+      ChamCongTrongNgay: [
+        {
+          Loai: 1,
+          TimeCheck: "2024-05-14 08:20:00",
+        },
+        {
+          Loai: 2,
+          TimeCheck: "2024-05-14 14:20:00",
         },
       ],
     },
