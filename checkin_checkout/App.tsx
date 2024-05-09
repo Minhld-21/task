@@ -6,6 +6,8 @@ import {
   Image,
   SafeAreaView,
   FlatList,
+  TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Calendar, LocaleConfig } from "react-native-calendars";
@@ -107,139 +109,128 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Ionicons name="chevron-back" size={24} color="black" />
+        <TouchableOpacity>
+          <Ionicons name="chevron-back" size={24} color="black" />
+        </TouchableOpacity>
         <Text style={styles.txtHeader}>Bảng checkin checkout</Text>
       </View>
-      <View style={styles.boxIn4User}>
-        <Image
-          source={require("./assets/image.jpg")}
-          style={{ width: 80, height: 80, borderRadius: 10 }}
-          resizeMode="cover"
-        />
-        <View style={{ gap: 5 }}>
-          <Text style={{ fontSize: 18, fontWeight: "500", color: "#0F1035" }}>
-            {data.HoTenNhanVien}
-          </Text>
-          <Text style={{ fontSize: 14, color: "#0F1035" }}>
-            Ngày sinh: {getBirthDay()}
-          </Text>
-          <Text style={{ fontSize: 14, color: "#0F1035" }}>
-            Chức vụ: {data.ChucVu}
-          </Text>
-        </View>
-      </View>
-      <View style={styles.notes}>
-        <View style={styles.circle}>
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 100,
-              backgroundColor: "green",
-            }}
-          ></View>
-          <Text style={styles.txtNote}>Check đủ</Text>
-        </View>
-        <View style={styles.circle}>
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 100,
-              backgroundColor: "#874CCC",
-            }}
-          ></View>
-          <Text style={styles.txtNote}>Check không đạt</Text>
-        </View>
-        <View style={styles.circle}>
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 100,
-              backgroundColor: "red",
-            }}
-          ></View>
-          <Text style={styles.txtNote}>Không check</Text>
-        </View>
-        <View style={styles.circle}>
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              borderRadius: 100,
-              backgroundColor: "orange",
-            }}
-          ></View>
-          <Text style={styles.txtNote}>check thiếu</Text>
-        </View>
-      </View>
-      <Calendar
-        onDayPress={handleDay}
-        markedDates={{
-          ...markedDates,
-          [selectedDate]: {
-            selected: true,
-            disableTouchEvent: true,
-          },
-        }}
-        theme={{
-          selectedDayBackgroundColor: "#7FC7D9",
-        }}
-        style={styles.calender}
-      />
-      <View style={styles.boxDetailCheck}>
-        <Text style={{ fontSize: 18, fontWeight: "700" }}>
-          Chi tiết checkin checkout
-        </Text>
-        <Text>{selecteddayofweek}</Text>
-      </View>
-      <FlatList
-        data={data.BangChamCong.filter((item) => item.Ngay === selectedDate)}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View
-            style={{
-              width: "90%",
-              height: "auto",
-              backgroundColor: "#DCF2F1",
-              paddingVertical: 10,
-              paddingHorizontal: 15,
-              alignSelf: "center",
-              gap: 5,
-              alignItems: "center",
-              marginBottom: 5,
-              borderBottomLeftRadius: 5,
-              borderBottomRightRadius: 5,
-            }}
-          >
-            {item.ChamCongTrongNgay.map((check, index) => {
-              const checkType = check.Loai === 1 ? "CheckIn" : "CheckOut";
-              return (
-                <View style={styles.boxCheck} key={index}>
-                  <Text style={styles.txtTitleCheck}>{`${checkType} lần ${
-                    index + 1
-                  }: `}</Text>
-                  <Text style={styles.txtCheck}>
-                    {new Date(check.TimeCheck).toLocaleTimeString()}
-                  </Text>
-                </View>
-              );
-            })}
+      <ScrollView>
+        <View style={styles.boxIn4User}>
+          <Image
+            source={require("./assets/image.jpg")}
+            style={{ width: 55, height: 55, borderRadius: 10 }}
+            resizeMode="cover"
+          />
+          <View>
+            <Text style={{ fontSize: 16, fontWeight: "500", color: "#0F1035" }}>
+              {data.HoTenNhanVien}
+            </Text>
+            <Text style={{ fontSize: 12, color: "#0F1035" }}>
+              Ngày sinh: {getBirthDay()}
+            </Text>
+            <Text style={{ fontSize: 12, color: "#0F1035" }}>
+              Chức vụ: {data.ChucVu}
+            </Text>
           </View>
-        )}
-      />
+        </View>
+        <View style={styles.notes}>
+          <View style={styles.circle}>
+            <View
+              style={{
+                width: 15,
+                height: 15,
+                borderRadius: 100,
+                backgroundColor: "green",
+              }}
+            ></View>
+            <Text style={styles.txtNote}>Check đủ</Text>
+          </View>
+          <View style={styles.circle}>
+            <View
+              style={{
+                width: 15,
+                height: 15,
+                borderRadius: 100,
+                backgroundColor: "#874CCC",
+              }}
+            ></View>
+            <Text style={styles.txtNote}>Check không đạt</Text>
+          </View>
+          <View style={styles.circle}>
+            <View
+              style={{
+                width: 15,
+                height: 15,
+                borderRadius: 100,
+                backgroundColor: "red",
+              }}
+            ></View>
+            <Text style={styles.txtNote}>Không check</Text>
+          </View>
+          <View style={styles.circle}>
+            <View
+              style={{
+                width: 15,
+                height: 15,
+                borderRadius: 100,
+                backgroundColor: "orange",
+              }}
+            ></View>
+            <Text style={styles.txtNote}>check thiếu</Text>
+          </View>
+        </View>
+        <Calendar
+          onDayPress={handleDay}
+          markedDates={{
+            ...markedDates,
+            [selectedDate]: {
+              selected: true,
+              disableTouchEvent: true,
+            },
+          }}
+          theme={{
+            selectedDayBackgroundColor: "#EBF400",
+          }}
+          style={styles.calender}
+        />
+        <View style={styles.boxDetailCheck}>
+          <Text style={{ fontSize: 18, fontWeight: "700" }}>
+            Chi tiết checkin checkout
+          </Text>
+          <Text>{selecteddayofweek}</Text>
+          <FlatList
+            data={data.BangChamCong.filter(
+              (item) => item.Ngay === selectedDate
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            scrollEnabled={false}
+            renderItem={({ item }) => (
+              <View style={{ alignSelf: "center", gap: 5, paddingTop: 5 }}>
+                {item.ChamCongTrongNgay.map((check, index) => {
+                  const checkType = check.Loai === 1 ? "CheckIn" : "CheckOut";
+                  return (
+                    <View style={styles.boxCheck} key={index}>
+                      <Text>{`${checkType} lần ${index + 1}: `}</Text>
+                      <Text>
+                        {new Date(check.TimeCheck).toLocaleTimeString()}
+                      </Text>
+                    </View>
+                  );
+                })}
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  txtCheck: {},
-  txtTitleCheck: {},
   boxCheck: {
     width: "90%",
     height: "auto",
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 30,
     backgroundColor: "white",
     flexDirection: "row",
@@ -250,14 +241,13 @@ const styles = StyleSheet.create({
     width: "90%",
     height: "auto",
     backgroundColor: "#DCF2F1",
-    paddingVertical: 10,
+    paddingVertical: 5,
     paddingHorizontal: 15,
-    marginTop: 15,
+    marginTop: 10,
     alignSelf: "center",
-    gap: 5,
     alignItems: "center",
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderRadius: 5,
+    bottom: 5,
   },
   txtNote: {
     fontSize: 10,
@@ -272,7 +262,6 @@ const styles = StyleSheet.create({
   notes: {
     width: "90%",
     height: 50,
-    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     alignSelf: "center",
@@ -289,10 +278,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 10,
     borderRadius: 20,
-    paddingHorizontal: 25,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 5,
     flexDirection: "row",
-    gap: 20,
+    gap: 30,
   },
   txtHeader: {
     fontSize: 20,
@@ -307,6 +296,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 20,
     paddingHorizontal: 20,
+    justifyContent: "flex-start",
     paddingTop: 20,
   },
   container: {
