@@ -1,17 +1,50 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Button} from 'react-native';
+import {StyleSheet, View, Button, Alert} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
+import Geolocation from '@react-native-community/geolocation';
 
-const QRCheck = (props: any) => {
-  const [on, setOn] = useState<boolean>(false);
-  const [location, setLocation] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+const QRCheck = ({navigation}: any) => {
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
 
-  const torchControll = () => {};
-  const onSuccess = (e: {data: string}) => {
-    console.log(e.data);
-    setOn(true);
+  useEffect(() => {
+    Geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
+      setLatitude(latitude);
+      setLongitude(longitude);
+    });
+  }, []);
+
+  const onSuccess = async (e: {data: string}) => {
+    try {
+      const Response = await fetch(
+        `https://api-dev-pkg.azurewebsites.net/api/Check/checkDistance`,
+        {
+          body: JSON.stringify({
+            stringCheck: e.data,
+            latitude: '10.7438615',
+            longitude: '106.6911594',
+          }),
+          method: 'POST',
+          headers: {
+            accept: '*/*',
+            'Content-Type': 'application/json',
+            Cookie:
+              'ARRAffinity=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5; ARRAffinitySameSite=79e06db539acb57119e709978d2cf1da299e8341753d6f6345007fcab3f69bc5',
+          },
+        },
+      );
+      const Json = await Response.json();
+      if (Json.success === '00') {
+        Alert.alert(Json.message);
+      } else {
+        const checkDateTime = new Date().toLocaleString('vi-VN');
+
+        navigation.navigate('ConfirmCheck', {...Json.data, checkDateTime});
+      }
+    } catch (error: any) {
+      console.log(error);
+    }
   };
   return (
     <View style={{width: '100%', height: '100%'}}>
@@ -20,12 +53,6 @@ const QRCheck = (props: any) => {
         onRead={onSuccess}
         flashMode={RNCamera.Constants.FlashMode.off}
         cameraStyle={{width: '100%', height: '100%'}}
-      />
-      <Button
-        title="torch"
-        onPress={() =>
-          props.navigation.navigate('ConfirmCheck', {name: 'minh'})
-        }
       />
     </View>
   );
