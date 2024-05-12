@@ -1,14 +1,29 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Touchable,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import RadioGroup from 'react-native-radio-buttons-group';
-
+import moment from 'moment';
+import {getUniqueId} from 'react-native-device-info';
+import {SelectList} from 'react-native-dropdown-select-list';
 const ConfirmCheck = ({route}: any) => {
   const data = route.params;
   const [time, date] = data.checkDateTime.split(',');
-  const [dataUser, setDataUser] = useState();
-  console.log(dataUser);
+  const [dataUser, setDataUser] = useState<any>();
+  const [idDevice, setidDevice] = useState<any>();
+  const [check, setCheck] = useState('');
+  const getDeviceInfo = async () => {
+    let device = await getUniqueId();
+    setidDevice(device);
+  };
 
+  const handleCheck = () => {};
+
+  const fomatBirthday = moment(dataUser?.NgaySinhNhat).format('DD/MM/YYYY');
   useEffect(() => {
     (async () => {
       const Response = await fetch(
@@ -33,8 +48,12 @@ const ConfirmCheck = ({route}: any) => {
       );
       const Json = await Response.json();
       setDataUser(Json.nguoidung);
+      getDeviceInfo();
     })();
   }, []);
+
+  console.log(check);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.boxIn4}>
@@ -43,14 +62,59 @@ const ConfirmCheck = ({route}: any) => {
           <Text style={styles.txtContent}>{date}</Text>
         </View>
         <View style={styles.Content}>
-          <Text style={styles.txtTitel}>Ngày Check:</Text>
+          <Text style={styles.txtTitel}>Giờ Check:</Text>
           <Text style={styles.txtContent}>{time}</Text>
         </View>
         <View style={styles.Content}>
           <Text style={styles.txtTitel}>Vị trí:</Text>
           <Text style={styles.txtContent}>{data.DiaChi}</Text>
         </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Họ và Tên:</Text>
+          <Text style={styles.txtContent}>{dataUser?.TenNguoiDung}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Ngày sinh:</Text>
+          <Text style={styles.txtContent}>{fomatBirthday}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Giới tính:</Text>
+          <Text style={styles.txtContent}>{dataUser?.GioiTinh}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Điện thoại:</Text>
+          <Text style={styles.txtContent}>{dataUser?.DienThoai}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Email:</Text>
+          <Text style={styles.txtContent}>{dataUser?.Email}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>CMND:</Text>
+          <Text style={styles.txtContent}>{dataUser?.CMND}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Chức vụ:</Text>
+          <Text style={styles.txtContent}>{dataUser?.VaiTro}</Text>
+        </View>
+        <View style={styles.Content}>
+          <Text style={styles.txtTitel}>Chi nhánh:</Text>
+          <Text style={styles.txtContent}>{dataUser?.DiaChiCuaHang}</Text>
+        </View>
       </View>
+      <SelectList
+        setSelected={(val: string) => setCheck(val)}
+        data={dataCheck}
+        save="value"
+        placeholder="Chọn loại check"
+        boxStyles={{width: '80%', alignSelf: 'center', marginTop: 20}}
+        inputStyles={{color: 'black'}}
+        dropdownTextStyles={{color: 'black'}}
+        dropdownStyles={{width: '80%', alignSelf: 'center'}}
+      />
+      <TouchableOpacity style={styles.btn}>
+        <Text style={{fontWeight: '700'}}>Xác nhận {check}</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -58,13 +122,50 @@ const ConfirmCheck = ({route}: any) => {
 export default ConfirmCheck;
 
 const styles = StyleSheet.create({
+  btn: {
+    width: '70%',
+    height: 50,
+    backgroundColor: 'orange',
+    alignSelf: 'center',
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  dropdown: {
+    margin: 16,
+    height: 50,
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.5,
+  },
+  icon: {
+    marginRight: 5,
+  },
+  placeholderStyle: {
+    fontSize: 16,
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+  },
   txtContent: {
     color: 'black',
-    width: '70%',
+    width: '65%',
     textAlign: 'right',
+    fontWeight: '400',
+    fontSize: 14,
   },
   txtTitel: {
     color: 'black',
+    fontWeight: '700',
+    fontSize: 14,
   },
   Content: {
     flexDirection: 'row',
@@ -72,15 +173,20 @@ const styles = StyleSheet.create({
   },
   boxIn4: {
     width: '80%',
-    height: '80%',
-    borderWidth: 1,
+    height: 'auto',
+    borderWidth: 0.3,
     alignSelf: 'center',
     marginTop: 20,
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    gap: 5,
+    paddingVertical: 15,
+    gap: 10,
+    borderRadius: 15,
   },
   container: {
     flex: 1,
   },
 });
+const dataCheck = [
+  {key: '1', value: 'Check In'},
+  {key: '2', value: 'Check Out'},
+];

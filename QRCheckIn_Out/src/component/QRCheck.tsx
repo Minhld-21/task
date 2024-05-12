@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, Button, Alert} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Button,
+  Alert,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import Geolocation from '@react-native-community/geolocation';
@@ -7,13 +14,6 @@ import Geolocation from '@react-native-community/geolocation';
 const QRCheck = ({navigation}: any) => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-
-  useEffect(() => {
-    Geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
-      setLatitude(latitude);
-      setLongitude(longitude);
-    });
-  }, []);
 
   const onSuccess = async (e: {data: string}) => {
     try {
@@ -35,17 +35,29 @@ const QRCheck = ({navigation}: any) => {
         },
       );
       const Json = await Response.json();
+
       if (Json.success === '00') {
         Alert.alert(Json.message);
       } else {
         const checkDateTime = new Date().toLocaleString('vi-VN');
 
-        navigation.navigate('ConfirmCheck', {...Json.data, checkDateTime});
+        navigation.navigate('ConfirmCheck', {
+          ...Json.data,
+          checkDateTime,
+        });
       }
     } catch (error: any) {
       console.log(error);
     }
   };
+  useEffect(() => {
+    Geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
+      setLatitude(latitude);
+      setLongitude(longitude);
+    });
+    onSuccess;
+  }, []);
+
   return (
     <View style={{width: '100%', height: '100%'}}>
       <QRCodeScanner
