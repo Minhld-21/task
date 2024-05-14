@@ -51,8 +51,8 @@ interface DataUSer {
 }
 
 const dataCheck = [
-  {key: '1', value: 'Check In'},
-  {key: '2', value: 'Check Out'},
+  {key: 1, value: 'Check In'},
+  {key: 2, value: 'Check Out'},
 ];
 const ConfirmCheck = ({route}: any) => {
   const data = route.params;
@@ -61,6 +61,7 @@ const ConfirmCheck = ({route}: any) => {
   const [idDevice, setidDevice] = useState<string>();
   const [systemName, setSystemName] = useState<string>();
   const [check, setCheck] = useState<number>(0);
+  console.log(check);
 
   //lấy id và nameSystem device
   const getDeviceInfo = async () => {
@@ -75,7 +76,7 @@ const ConfirmCheck = ({route}: any) => {
       'https://api-dev-pkg.azurewebsites.net/api/Check/CheckInCheckOut',
       {
         body: JSON.stringify({
-          IDNguoiDung: '1',
+          IDNguoiDung: /*dataUser[0].IDNguoiDung*/ '1',
           IDThietBi: idDevice,
           NenTangThietBi: systemName,
           ChuoiCheck: data.stringCheck,
@@ -131,8 +132,6 @@ const ConfirmCheck = ({route}: any) => {
       );
 
       const Json = await Response.json();
-      console.log(Json);
-
       setDataUser(Json.nguoidung);
     })();
     getDeviceInfo();
@@ -210,7 +209,7 @@ const ConfirmCheck = ({route}: any) => {
         </TouchableOpacity>
       ) : (
         <TouchableOpacity disabled style={styles.btnOff}>
-          <Text style={{fontWeight: '700'}}>Xác nhận</Text>
+          <Text style={{fontWeight: '700'}}>Xác Nhận</Text>
         </TouchableOpacity>
       )}
     </SafeAreaView>
