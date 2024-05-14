@@ -61,7 +61,6 @@ const ConfirmCheck = ({route}: any) => {
   const [idDevice, setidDevice] = useState<string>();
   const [systemName, setSystemName] = useState<string>();
   const [check, setCheck] = useState<number>(0);
-  console.log(check);
 
   //lấy id và nameSystem device
   const getDeviceInfo = async () => {
@@ -72,6 +71,11 @@ const ConfirmCheck = ({route}: any) => {
   };
   // handle confirm check
   const handleCheck = async () => {
+    const formatDateTime = moment(
+      data.checkDateTime,
+      'HH:mm:ss, DD/MM/YYYY',
+    ).format('YYYY-MM-DD HH:mm:ss');
+
     const ResponseConfirm = await fetch(
       'https://api-dev-pkg.azurewebsites.net/api/Check/CheckInCheckOut',
       {
@@ -81,7 +85,7 @@ const ConfirmCheck = ({route}: any) => {
           NenTangThietBi: systemName,
           ChuoiCheck: data.stringCheck,
           LoaiCheck: check,
-          NgayGioCheck: data.checkDateTime,
+          NgayGioCheck: formatDateTime,
           Lati: data.latitude,
           Longi: data.longitude,
         }),
@@ -93,6 +97,19 @@ const ConfirmCheck = ({route}: any) => {
         },
       },
     );
+    console.log(
+      JSON.stringify({
+        IDNguoiDung: /*dataUser[0].IDNguoiDung*/ '1',
+        IDThietBi: idDevice,
+        NenTangThietBi: systemName,
+        ChuoiCheck: data.stringCheck,
+        LoaiCheck: check,
+        NgayGioCheck: formatDateTime,
+        Lati: data.latitude,
+        Longi: data.longitude,
+      }),
+    );
+
     const JsonConfirm = await ResponseConfirm.json();
     console.log(JsonConfirm);
     if (JsonConfirm.success === '02') {
