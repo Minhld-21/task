@@ -14,14 +14,14 @@ import Geolocation from '@react-native-community/geolocation';
 const QRCheck = ({navigation}: any) => {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
-
   const onSuccess = async (e: {data: string}) => {
+    const stringCheck = e.data;
     try {
       const Response = await fetch(
         `https://api-dev-pkg.azurewebsites.net/api/Check/checkDistance`,
         {
           body: JSON.stringify({
-            stringCheck: e.data,
+            stringCheck: stringCheck,
             latitude: '10.7438615',
             longitude: '106.6911594',
           }),
@@ -44,6 +44,9 @@ const QRCheck = ({navigation}: any) => {
         navigation.navigate('ConfirmCheck', {
           ...Json.data,
           checkDateTime,
+          latitude,
+          longitude,
+          stringCheck,
         });
       }
     } catch (error: any) {
@@ -55,7 +58,6 @@ const QRCheck = ({navigation}: any) => {
       setLatitude(latitude);
       setLongitude(longitude);
     });
-    onSuccess;
   }, []);
 
   return (
@@ -65,6 +67,9 @@ const QRCheck = ({navigation}: any) => {
         onRead={onSuccess}
         flashMode={RNCamera.Constants.FlashMode.off}
         cameraStyle={{width: '100%', height: '100%'}}
+        showMarker={true}
+        markerStyle={{borderColor: 'white', borderWidth: 5}}
+        reactivate={true}
       />
     </View>
   );
