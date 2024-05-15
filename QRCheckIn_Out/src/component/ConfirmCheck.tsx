@@ -1,6 +1,7 @@
 import {
   Alert,
   Keyboard,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -156,53 +157,61 @@ const ConfirmCheck = ({route}: any) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       {dataUser.map((item: DataUSer, index) => {
         const fomatBirthday = moment(item?.NgaySinhNhat).format('DD/MM/YYYY');
         return (
           <View style={styles.boxIn4} key={index}>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Ngày Check:</Text>
-              <Text style={styles.txtContent}>{date}</Text>
+            <View style={styles.twoInBox}>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Ngày Check</Text>
+                <Text style={styles.txtContent}>{date}</Text>
+              </View>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Giờ Check</Text>
+                <Text style={styles.txtContent}>{time}</Text>
+              </View>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Giờ Check:</Text>
-              <Text style={styles.txtContent}>{time}</Text>
-            </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Vị trí:</Text>
+            <View style={styles.box}>
+              <Text style={styles.txtTitle}>Vị trí</Text>
               <Text style={styles.txtContent}>{data.DiaChi}</Text>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Họ và Tên:</Text>
-              <Text style={styles.txtContent}>{item?.TenNguoiDung}</Text>
+            <View style={styles.twoInBox}>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Họ và Tên</Text>
+                <Text style={styles.txtContent}>{item?.TenNguoiDung}</Text>
+              </View>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Chức vụ</Text>
+                <Text style={styles.txtContent}>{item?.VaiTro}</Text>
+              </View>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Giới tính:</Text>
-              <Text style={styles.txtContent}>{item?.GioiTinh}</Text>
+            <View style={styles.twoInBox}>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Giới tính</Text>
+                <Text style={styles.txtContent}>{item?.GioiTinh}</Text>
+              </View>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Ngày sinh</Text>
+                <Text style={styles.txtContent}>{fomatBirthday}</Text>
+              </View>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Ngày sinh:</Text>
-              <Text style={styles.txtContent}>{fomatBirthday}</Text>
+            <View style={styles.twoInBox}>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>Điện thoại</Text>
+                <Text style={styles.txtContent}>{item?.DienThoai}</Text>
+              </View>
+              <View style={styles.twoBox}>
+                <Text style={styles.txtTitle}>CMND</Text>
+                <Text style={styles.txtContent}>{item?.CMND}</Text>
+              </View>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Điện thoại:</Text>
-              <Text style={styles.txtContent}>{item?.DienThoai}</Text>
-            </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Email:</Text>
+            <View style={styles.box}>
+              <Text style={styles.txtTitle}>Email</Text>
               <Text style={styles.txtContent}>{item?.Email}</Text>
             </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>CMND:</Text>
-              <Text style={styles.txtContent}>{item?.CMND}</Text>
-            </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Chức vụ:</Text>
-              <Text style={styles.txtContent}>{item?.VaiTro}</Text>
-            </View>
-            <View style={styles.Content}>
-              <Text style={styles.txtTitel}>Chi nhánh:</Text>
+            <View style={styles.box}>
+              <Text style={styles.txtTitle}>Chi nhánh</Text>
               <Text style={styles.txtContent}>{item?.DiaChiCuaHang}</Text>
             </View>
           </View>
@@ -213,29 +222,86 @@ const ConfirmCheck = ({route}: any) => {
         data={dataCheck}
         save="key"
         placeholder="Chọn loại check"
-        boxStyles={{width: '80%', alignSelf: 'center', marginTop: 20}}
-        inputStyles={{color: 'black'}}
-        dropdownTextStyles={{color: 'black'}}
-        dropdownStyles={{width: '80%', alignSelf: 'center'}}
+        boxStyles={styles.input}
+        inputStyles={{color: '#365486', fontWeight: '600', fontSize: 14}}
+        dropdownTextStyles={{color: '#B6BBC4', fontWeight: '500', fontSize: 14}}
+        dropdownStyles={{
+          width: '90%',
+          alignSelf: 'center',
+          borderColor: '#B6BBC4',
+        }}
       />
       {check != 0 ? (
         <TouchableOpacity onPress={handleCheck} style={styles.btn}>
-          <Text style={{fontWeight: '700'}}>
+          <Text style={{fontWeight: '700', color: 'white'}}>
             Xác Nhận {check === 1 ? 'Check In' : 'Check Out'}
           </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity disabled style={styles.btnOff}>
-          <Text style={{fontWeight: '700'}}>Xác Nhận</Text>
+          <Text style={{fontWeight: '700'}}>Chọn loại check</Text>
         </TouchableOpacity>
       )}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
 export default ConfirmCheck;
 
 const styles = StyleSheet.create({
+  input: {
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#365486',
+  },
+  twoInBox: {
+    flexDirection: 'row',
+    gap: 15,
+    width: '100%',
+  },
+  txtTitle: {
+    color: '#365486',
+    position: 'absolute',
+    left: '10%',
+    top: -10,
+    backgroundColor: 'white',
+    paddingHorizontal: 15,
+    zIndex: 1,
+    height: 'auto',
+    width: 'auto',
+    fontWeight: '700',
+    fontSize: 14,
+  },
+  txtContent: {
+    color: 'black',
+    fontWeight: '400',
+    fontSize: 12,
+    marginTop: 5,
+    left: '8%',
+  },
+  twoBox: {
+    borderWidth: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    width: 'auto',
+    height: 'auto',
+    borderRadius: 10,
+    position: 'relative',
+    flex: 1,
+    borderColor: '#365486',
+  },
+  box: {
+    borderWidth: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    width: 'auto',
+    height: 'auto',
+    borderRadius: 10,
+    position: 'relative',
+    borderColor: '#365486',
+  },
   btnOff: {
     width: '70%',
     height: 50,
@@ -249,7 +315,7 @@ const styles = StyleSheet.create({
   btn: {
     width: '70%',
     height: 50,
-    backgroundColor: 'orange',
+    backgroundColor: '#FFC94A',
     alignSelf: 'center',
     marginTop: 20,
     alignItems: 'center',
@@ -262,12 +328,6 @@ const styles = StyleSheet.create({
     borderBottomColor: 'gray',
     borderBottomWidth: 0.5,
   },
-  icon: {
-    marginRight: 5,
-  },
-  placeholderStyle: {
-    fontSize: 16,
-  },
   selectedTextStyle: {
     fontSize: 16,
   },
@@ -279,34 +339,15 @@ const styles = StyleSheet.create({
     height: 40,
     fontSize: 16,
   },
-  txtContent: {
-    color: 'black',
-    width: '65%',
-    textAlign: 'right',
-    fontWeight: '400',
-    fontSize: 14,
-  },
-  txtTitel: {
-    color: 'black',
-    fontWeight: '700',
-    fontSize: 14,
-  },
-  Content: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   boxIn4: {
-    width: '80%',
+    width: '90%',
     height: 'auto',
-    borderWidth: 0.3,
     alignSelf: 'center',
-    marginTop: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    gap: 10,
-    borderRadius: 15,
+    marginTop: 25,
+    gap: 18,
   },
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
 });
