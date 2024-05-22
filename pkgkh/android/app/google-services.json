@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "914976815710",
+    "project_id": "phuckhangshop-b6d1a",
+    "storage_bucket": "phuckhangshop-b6d1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:914976815710:android:687cbbb3cba1f0596ed2cf",
+        "android_client_info": {
+          "package_name": "com.phuckhangshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZtu-S2xwy9Dwro3ENqarSacsI56xyiIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

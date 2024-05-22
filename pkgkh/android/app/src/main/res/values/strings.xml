@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">@string/APP_NAME</string>
+    <string name="notification_channel_id">@string/NOTIFICATION_CHANNEL_ID</string>
+</resources>

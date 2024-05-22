@@ -1,0 +1,25 @@
+{
+    "plugins": [
+      ["module-resolver", {
+        "alias": {
+          "~root": ["./src"],
+          "~config": "./src/config",
+          "~assets": "./src/assets",
+          "~data": "./src/data",
+          "~reduxCore": "./src/reduxCore",
+          "~modals": "./src/modals",
+          "~helper": "./src/helper",
+          "~screens": "./src/screens",
+          "~shared": "./src/shared",
+          "~components": "./src/shared/components",
+          "~theme": "./src/theme",
+          "~constants": "./src/constants",
+          "~services": "./src/services",
+          "~reports": "./src/screens/Main/reports",
+          "~sales": "./src/screens/Main/sales",
+          "~navigator": "./src/navigator"
+
+        }
+      }]
+    ]
+  }

@@ -1,0 +1,45 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/Hahmlet-Black.ttf",
+      "sha1": "6f4aaa920d5ef47956f69f2c9413fca3e20e66aa"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-Bold.ttf",
+      "sha1": "2d8115c2df203fe240680afd4670707ecd0955c9"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-ExtraBold.ttf",
+      "sha1": "9db9546bfa40d61e6b17358600f397c92393ddf9"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-ExtraLight.ttf",
+      "sha1": "e6712315048a38e198be1eabeb1ddedb36bcaeb1"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-Light.ttf",
+      "sha1": "a9fdf27dcfa67d81ca8a288f2c93896da1bbcbe0"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-Medium.ttf",
+      "sha1": "5573f44887f6ba34ea5dfce6f08c937085f7592a"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-Regular.ttf",
+      "sha1": "689f326f513d321a93e2a68a138332ed8762cb55"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-SemiBold.ttf",
+      "sha1": "b7a12167ccc0dbbdd9afd900b30bf2d2aef459cf"
+    },
+    {
+      "path": "src/assets/fonts/Hahmlet-Thin.ttf",
+      "sha1": "58dc71b89bee09e865858104d90b7ac890d1b7b6"
+    },
+    {
+      "path": "src/assets/fonts/fontello.ttf",
+      "sha1": "198ba1acbbdb7ddc0163bc92a72be2c2e8318b5f"
+    }
+  ]
+}
