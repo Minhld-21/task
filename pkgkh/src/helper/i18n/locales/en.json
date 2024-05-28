@@ -115,5 +115,8 @@
   "deleteAccount": "Delete Account",
   "alertDeleteAccount": "Are you sure you want to delete this account ?",
   "deleteAccountFail": "Delete account fail !",
-  "qrcheck": "Check in/out by QR code"
+  "qrcheck": "Check in/out by QR code",
+  "checkpoint": "Manage Checkpoints",
+  "createcp": "create Checkpoint",
+  "repaircp": "Repair Checkpoints"
 }

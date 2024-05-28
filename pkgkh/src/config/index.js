@@ -1,4 +1,4 @@
-import Config from "react-native-config";
+import Config from 'react-native-config';
 
 // Domain url server
 export const domain_url = Config.DOMAIN_URL;

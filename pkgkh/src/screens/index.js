@@ -19,12 +19,16 @@ import TimeKeeping from './Main/Info/TimeKeeping';
 import TimeSheet from './Main/Info/TimeKeeping/TimeSheet';
 import QRCheck from './Main/Info/TimeKeeping/QRCheck';
 import ConfirmCheck from './Main/Info/TimeKeeping/ConfirmCheck';
+import CheckPoint from './Main/Info/CheckPoint';
+import CreateCP from './Main/Info/CheckPoint/CreateCP';
+import RepairCP from './Main/Info/CheckPoint/RepairCP';
+import CheckPointDetail from './Main/Info/CheckPoint/CheckpointDetail';
 import FengShui from './Main/FengShui';
 import ConsultFengShui from './Main/FengShui/ConsultFengShui';
 import HistoryFengShui from './Main/FengShui/HistoryFengShui';
 import SiginNumero from './Main/FengShui/SiginNumero';
 import ResultFengShui from './Main/FengShui/ResultFengShui';
-
+import test from './Main/Info/CheckPoint/test';
 export {
   Store,
   DetailProduct,
@@ -45,6 +49,10 @@ export {
   Notify,
   TimeKeeping,
   TimeSheet,
+  CheckPoint,
+  CreateCP,
+  RepairCP,
+  CheckPointDetail,
   QRCheck,
   ConfirmCheck,
   FengShui,
@@ -52,4 +60,5 @@ export {
   ConsultFengShui,
   ResultFengShui,
   HistoryFengShui,
+  test,
 };

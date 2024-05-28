@@ -117,5 +117,8 @@
   "deleteAccount": "Xóa tài khoản",
   "alertDeleteAccount": "Bạn có chắc chắn muốn xóa tài khoản này không ?",
   "deleteAccountFail": "Xóa tài khoản thất bại!",
-  "timeKeeping": "Chấm công bằng mã QR"
+  "timeKeeping": "Chấm công bằng mã QR",
+  "checkpoint": "Quản lý điểm check",
+  "createcp": "Tạo điểm mới",
+  "repaircp": "Sửa điểm check"
 }

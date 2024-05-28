@@ -16,3 +16,13 @@ export const getTimeSheet = payload => {
   console.log('Call api getTimeSheet');
   return Axios(POST, urlApp?.postUrl?.getTimeSheet, payload);
 };
+
+export const getDSDiaDiemCheck = payload => {
+  console.log('Call api getDSDiaDiemCheck');
+  return Axios(POST, urlApp?.postUrl?.getDSDiaDiemCheck, payload);
+};
+
+export const quanlydiadiemcheck = payload => {
+  console.log('Call api quanlydiadiemcheck');
+  return Axios(POST, urlApp?.postUrl?.quanlydiadiemcheck, payload);
+};

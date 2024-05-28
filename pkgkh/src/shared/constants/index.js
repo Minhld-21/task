@@ -45,6 +45,8 @@ const postUrl = {
   checkQR: `${apiCheck}CheckViTri`,
   confirmCheck: `${apiCheck}CheckInCheckOut`,
   getTimeSheet: `${apiCheck}LichSuCheckInCheckOut`,
+  getDSDiaDiemCheck: `${apiCheck}GetDanhSachDiaDiemCheck`,
+  quanlydiadiemcheck: `${apiCheck}QuanLyDiaDiemCheck`,
 };
 const urlApp = {
   postUrl,

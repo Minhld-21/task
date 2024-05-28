@@ -37,6 +37,11 @@ import {
   TimeSheet,
   QRCheck,
   ConfirmCheck,
+  CheckPoint,
+  CreateCP,
+  RepairCP,
+  CheckPointDetail,
+  test,
 } from '~screens';
 import {
   userSelectors,
@@ -179,6 +184,11 @@ const InfoStack = () => (
       'timesheet',
       'qrcheck',
       'confirmcheck',
+      'checkpoint',
+      'createcp',
+      'repaircp',
+      'checkpointdetail',
+      'test',
     ].map(name =>
       StackScreen(
         name,
@@ -191,6 +201,11 @@ const InfoStack = () => (
           timesheet: TimeSheet,
           qrcheck: QRCheck,
           confirmcheck: ConfirmCheck,
+          checkpoint: CheckPoint,
+          createcp: CreateCP,
+          repaircp: RepairCP,
+          checkpointdetail: CheckPointDetail,
+          test: test,
         }[name],
       ),
     )}

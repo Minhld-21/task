@@ -13,7 +13,6 @@ export default Index = props => {
   const {country, city, defaultZipCode, getDataSelect} = props;
   const [dataZipCode, setDataZipCode] = useState([]);
   const [zipCodeDefault, setZipCodeDefault] = useState();
-
   useEffect(() => {
     getDataZipCode();
   }, [city, defaultZipCode]);
