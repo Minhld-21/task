@@ -12,7 +12,7 @@ export default Index = props => {
   const dispatch = useDispatch();
   const {country, defaultCity, getDataSelect} = props;
   const [dataCity, setDataCity] = useState([]);
-  const [cityDefault, setCityDefault] = useState();
+  const [cityDefault, setCityDefault] = useState('');
 
   useEffect(() => {
     getDataCity();
@@ -67,7 +67,7 @@ export default Index = props => {
   return (
     <View>
       <ProvincePicker
-        title={t('province')+'(*)'}
+        title={t('province') + '(*)'}
         data={dataCity}
         style={styles.styleSelectBox}
         labelStyle={styles.labelStyleSelect}

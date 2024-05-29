@@ -110,8 +110,8 @@ function* quanlydiemcheck({payload: {params, onSuccess, onError}}) {
       tendiadiem: params?.tendiadiem,
       diachi: params?.diachi,
       macheck: params?.macheck,
-      latitude: params?.latitude,
-      longitude: params?.longitude,
+      latitude: params?.latitude.toString(),
+      longitude: params?.longitude.toString(),
       thanhpho: params?.thanhpho,
       mabang: params?.mabang,
       maquocgia: params?.maquocgia,
@@ -120,6 +120,7 @@ function* quanlydiemcheck({payload: {params, onSuccess, onError}}) {
       tenquan: params?.tenquan,
     };
     const res = yield call(checkApi?.quanlydiadiemcheck, variables);
+
     if (res.success) {
       const result = res?.data;
       if (result[0].success == '01') {

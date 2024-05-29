@@ -1,10 +1,66 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Sizes, parseSize, Height, Width} from '~theme';
+import {Colors} from '~theme';
 
 export default styles = StyleSheet.create({
+  txtMaCheck: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: '#9098B1',
+    marginTop: 30,
+  },
+  bottomModal: {
+    width: '80%',
+    flex: 1,
+    gap: 10,
+    justifyContent: 'flex-end',
+    bottom: 20,
+  },
+  btnModal: {
+    backgroundColor: 'blue',
+    width: '100%',
+    height: 60,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+  },
+  txtBtnModal: {
+    fontSize: 16,
+    fontWeight: '700',
+    color: 'white',
+  },
+  QR: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    flex: 2,
+    backgroundColor: 'white',
+  },
+  content: {
+    width: '90%',
+    height: '80%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  backgroundModal: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'grey',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   line: {
     borderWidth: 1,
     borderColor: '#EBF0FF',
+  },
+  btnDelete: {
+    flex: 1,
+    borderLeftWidth: 2,
+    borderColor: '#EBF0FF',
+    backgroundColor: '#FF6868',
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
   },
   btn: {
     flex: 1,
@@ -14,12 +70,13 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
   },
   boxRight: {
-    flex: 2,
+    flex: 3.5,
     borderTopRightRadius: 20,
     borderBottomRightRadius: 20,
     borderWidth: 2,
     borderColor: '#EBF0FF',
     backgroundColor: '#F6F5F2',
+    flexDirection: 'row',
   },
   boxLeft: {
     flex: 8,

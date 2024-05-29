@@ -50,15 +50,6 @@ const Index = props => {
             <Text style={styles.textTitle}>{t('repaircp')}</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.wrapFuture}
-          onPress={() => {
-            handleClick('test');
-          }}>
-          <View style={styles.wrapTitle}>
-            <Text style={styles.textTitle}>{t('test')}</Text>
-          </View>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

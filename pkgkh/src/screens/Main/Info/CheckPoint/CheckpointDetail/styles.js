@@ -39,18 +39,6 @@ export default styles = StyleSheet.create({
     fontWeight: '700',
     color: 'white',
   },
-  btnDelete: {
-    backgroundColor: 'red',
-    width: '80%',
-    height: 60,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    marginTop: 25,
-    flex: 1,
-    marginHorizontal: 10,
-  },
   btn: {
     backgroundColor: '#4E41D9',
     width: '80%',

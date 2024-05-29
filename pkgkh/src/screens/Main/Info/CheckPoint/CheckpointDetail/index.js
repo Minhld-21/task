@@ -27,12 +27,12 @@ export default Index = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    longitude: 0,
-    latitude: 0,
+    longitude: null,
+    latitude: null,
     locationName: '',
     qrCode: '',
-    natioCode: 'VN',
-    natioName: 'Viet Nam',
+    natioCode: '',
+    natioName: '',
     provinceCode: '',
     provinceName: '',
     districtName: '',
@@ -48,30 +48,21 @@ export default Index = () => {
     }));
   };
 
-  // chuyền dữ liệu sang màn modal
-  const handledata = coordinate => {
-    setFormValues({
-      ...formValues,
-      longitude: coordinate.longitude,
-      latitude: coordinate.latitude,
-    });
-    setModalVisible(false);
-  };
-
-  // lưu lại lati và longi từ màn modal
+  // nhận dữ liệu location từ modal
   const handleLocationData = locationDetails => {
     setFormValues(prevValues => ({
       ...prevValues,
       ...locationDetails,
     }));
+    setModalVisible(false);
   };
 
-  // call api quản lý địa điểm check
-  const handleConfirmChange = async loai => {
+  // sửa điểm check
+  const handleConfirmChange = async () => {
     dispatch(checkActions.toggleLoading(true));
     const payload = {
       params: {
-        loai: loai,
+        loai: 2,
         IDDiaDiem: listCheckPoint.IDDiaDiem,
         tendiadiem: formValues.locationName,
         diachi: formValues.address,
@@ -85,7 +76,7 @@ export default Index = () => {
         tenquocgia: formValues.natioName,
         tenquan: formValues.districtName,
       },
-      onSuccess: async data => {
+      onSuccess: async () => {
         await dispatch(checkActions.toggleLoading(false));
         navigate('checkpoint');
       },
@@ -104,11 +95,16 @@ export default Index = () => {
         latitude: listCheckPoint.Latitude,
         locationName: listCheckPoint.TenDiaDiem,
         qrCode: listCheckPoint.MaCheck,
+        natioCode: listCheckPoint.MaQuocGia,
+        natioName: listCheckPoint.TenQuocGia,
+        provinceCode: listCheckPoint.MaBang,
+        provinceName: listCheckPoint.TenBang,
+        districtName: listCheckPoint.TenQuan,
+        cityName: listCheckPoint.ThanhPho,
         address: listCheckPoint.DiaChi,
       });
     }
   }, [listCheckPoint]);
-
   useEffect(() => {
     formValues;
   }, [formValues]);
@@ -169,15 +165,14 @@ export default Index = () => {
           <View>
             <Map
               onClose={() => setModalVisible(false)}
-              dataCoordinate={handledata}
-              data={listCheckPoint}
               dataLocation={handleLocationData}
+              formValues={formValues}
             />
           </View>
         </Modal>
         <View style={styles.bottom}>
           <TouchableOpacity
-            onPress={() => handleConfirmChange(2)}
+            onPress={() => handleConfirmChange()}
             style={styles.btn}>
             <Text style={styles.txtBtn}>Xác nhận</Text>
           </TouchableOpacity>
@@ -187,11 +182,6 @@ export default Index = () => {
             <Text style={styles.txtBtn}>Chọn lại vị trí</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => handleConfirmChange(3)}
-          style={styles.btnDelete}>
-          <Text style={styles.txtBtn}>Xóa</Text>
-        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );

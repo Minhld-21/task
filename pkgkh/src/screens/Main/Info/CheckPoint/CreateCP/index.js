@@ -36,7 +36,6 @@ export default Index = () => {
     cityName: '',
     address: '',
   });
-
   //lưu lại thay đổi từ các input
   const handleInputChange = (name, value) => {
     setFormValues(prevValues => ({
@@ -45,22 +44,13 @@ export default Index = () => {
     }));
   };
 
-  // truyền dữ liệu lati và longi sang màn modal
-  const handledata = coordinate => {
-    setFormValues({
-      ...formValues,
-      longitude: coordinate.longitude,
-      latitude: coordinate.latitude,
-    });
-    setModalVisible(false);
-  };
-
-  // truyền dữ liệu location sang màn modal
+  // nhận dữ liệu location sang màn modal
   const handleLocationData = locationDetails => {
     setFormValues(prevValues => ({
       ...prevValues,
       ...locationDetails,
     }));
+    setModalVisible(false);
   };
 
   // nút xác nhận và call api quản lý điểm check
@@ -110,8 +100,8 @@ export default Index = () => {
         <View>
           <Map
             onClose={() => setModalVisible(false)}
-            dataCoordinate={handledata}
             dataLocation={handleLocationData}
+            formValues={formValues}
           />
         </View>
       </Modal>
@@ -120,7 +110,9 @@ export default Index = () => {
           <View style={styles.boxInput}>
             <Text style={styles.txtTitle}>Kinh độ</Text>
             <TextInput
-              value={`${formValues.longitude}`}
+              value={`${
+                formValues.longitude == 0 ? ' ' : formValues.longitude
+              }`}
               style={styles.input}
               editable={false}
             />
@@ -128,7 +120,7 @@ export default Index = () => {
           <View style={styles.boxInput}>
             <Text style={styles.txtTitle}>Vĩ độ</Text>
             <TextInput
-              value={`${formValues.latitude}`}
+              value={`${formValues.latitude == 0 ? ' ' : formValues.latitude}`}
               style={styles.input}
               editable={false}
             />

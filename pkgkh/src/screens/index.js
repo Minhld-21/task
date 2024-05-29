@@ -28,7 +28,6 @@ import ConsultFengShui from './Main/FengShui/ConsultFengShui';
 import HistoryFengShui from './Main/FengShui/HistoryFengShui';
 import SiginNumero from './Main/FengShui/SiginNumero';
 import ResultFengShui from './Main/FengShui/ResultFengShui';
-import test from './Main/Info/CheckPoint/test';
 export {
   Store,
   DetailProduct,
@@ -60,5 +59,4 @@ export {
   ConsultFengShui,
   ResultFengShui,
   HistoryFengShui,
-  test,
 };

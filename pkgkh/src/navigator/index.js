@@ -41,7 +41,6 @@ import {
   CreateCP,
   RepairCP,
   CheckPointDetail,
-  test,
 } from '~screens';
 import {
   userSelectors,
@@ -188,7 +187,6 @@ const InfoStack = () => (
       'createcp',
       'repaircp',
       'checkpointdetail',
-      'test',
     ].map(name =>
       StackScreen(
         name,
@@ -205,7 +203,6 @@ const InfoStack = () => (
           createcp: CreateCP,
           repaircp: RepairCP,
           checkpointdetail: CheckPointDetail,
-          test: test,
         }[name],
       ),
     )}
