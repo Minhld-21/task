@@ -1,7 +1,27 @@
 import {StyleSheet} from 'react-native';
-import {Colors, Sizes, parseSize, Height, Width} from '~theme';
+import {Colors} from '~theme';
 
 export default styles = StyleSheet.create({
+  iconLocation: {
+    position: 'absolute',
+  },
+  imgLocation: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 20,
+  },
+  location: {
+    flexDirection: 'row',
+    width: '80%',
+    alignSelf: 'center',
+    gap: 5,
+  },
+  locationLeft: {
+    flex: 8,
+  },
+  locationRight: {
+    flex: 2.5,
+  },
   txtTitle: {
     color: '#223263',
     fontWeight: '700',

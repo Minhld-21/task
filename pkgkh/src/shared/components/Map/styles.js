@@ -2,17 +2,6 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '~theme';
 
 export default styles = StyleSheet.create({
-  btnAdress: {
-    width: '80%',
-    height: 60,
-    backgroundColor: '#4E41D9',
-    bottom: 20,
-    alignItems: 'center',
-    position: 'absolute',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    borderRadius: 20,
-  },
   body: {
     width: '80%',
     height: '50%',

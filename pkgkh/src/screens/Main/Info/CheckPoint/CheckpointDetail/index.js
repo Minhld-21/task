@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   SafeAreaView,
   Modal,
+  Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {useRoute} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 import Map from '~shared/components/Map';
 import styles from './styles';
@@ -18,6 +20,7 @@ import HeaderBar from '~components/HeaderBar';
 import HeaderTitle from '~components/HeaderTitle';
 import {navigate} from '~navigator/navigationUtils';
 import {checkActions} from '~reduxCore/reducers';
+import {showMessage} from 'react-native-flash-message';
 
 export default Index = () => {
   const {t} = useTranslation();
@@ -27,8 +30,8 @@ export default Index = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [formValues, setFormValues] = useState({
-    longitude: null,
-    latitude: null,
+    longitude: 0,
+    latitude: 0,
     locationName: '',
     qrCode: '',
     natioCode: '',
@@ -59,32 +62,44 @@ export default Index = () => {
 
   // sửa điểm check
   const handleConfirmChange = async () => {
-    dispatch(checkActions.toggleLoading(true));
-    const payload = {
-      params: {
-        loai: 2,
-        IDDiaDiem: listCheckPoint.IDDiaDiem,
-        tendiadiem: formValues.locationName,
-        diachi: formValues.address,
-        macheck: formValues.qrCode,
-        latitude: formValues.latitude,
-        longitude: formValues.longitude,
-        thanhpho: formValues.cityName,
-        mabang: formValues.provinceCode,
-        maquocgia: formValues.natioCode,
-        tenbang: formValues.provinceName,
-        tenquocgia: formValues.natioName,
-        tenquan: formValues.districtName,
-      },
-      onSuccess: async () => {
-        await dispatch(checkActions.toggleLoading(false));
-        navigate('checkpoint');
-      },
-      onError: async err => {
-        await dispatch(checkActions.toggleLoading(false));
-      },
-    };
-    await dispatch(checkActions.quanlydiemcheck(payload));
+    if (
+      formValues.locationName === '' ||
+      formValues.address === '' ||
+      formValues.qrCode === ''
+    ) {
+      showMessage({
+        duration: 3000,
+        message: 'Không để trống nội dung ở trên!!!',
+        type: 'danger',
+      });
+    } else {
+      dispatch(checkActions.toggleLoading(true));
+      const payload = {
+        params: {
+          loai: 2,
+          IDDiaDiem: listCheckPoint.IDDiaDiem,
+          tendiadiem: formValues.locationName,
+          diachi: formValues.address,
+          macheck: formValues.qrCode,
+          latitude: formValues.latitude,
+          longitude: formValues.longitude,
+          thanhpho: formValues.cityName,
+          mabang: formValues.provinceCode,
+          maquocgia: formValues.natioCode,
+          tenbang: formValues.provinceName,
+          tenquocgia: formValues.natioName,
+          tenquan: formValues.districtName,
+        },
+        onSuccess: async () => {
+          await dispatch(checkActions.toggleLoading(false));
+          navigate('checkpoint');
+        },
+        onError: async err => {
+          await dispatch(checkActions.toggleLoading(false));
+        },
+      };
+      await dispatch(checkActions.quanlydiemcheck(payload));
+    }
   };
 
   // lấy dữ liệu theo id từ màn repair
@@ -116,22 +131,6 @@ export default Index = () => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.boxInput}>
-          <Text style={styles.txtTitle}>Kinh độ</Text>
-          <TextInput
-            value={`${formValues.longitude}`}
-            style={styles.input}
-            editable={false}
-          />
-        </View>
-        <View style={styles.boxInput}>
-          <Text style={styles.txtTitle}>Vĩ độ</Text>
-          <TextInput
-            value={`${formValues.latitude}`}
-            style={styles.input}
-            editable={false}
-          />
-        </View>
-        <View style={styles.boxInput}>
           <Text style={styles.txtTitle}>Tên địa điểm</Text>
           <TextInput
             value={formValues.locationName}
@@ -155,6 +154,39 @@ export default Index = () => {
             style={styles.input}
           />
         </View>
+        <View style={styles.location}>
+          <View style={styles.locationLeft}>
+            <Text style={styles.txtTitle}>Kinh độ</Text>
+            <TextInput
+              value={`${formValues.longitude}`}
+              style={styles.input}
+              editable={false}
+            />
+            <Text style={styles.txtTitle}>Vĩ độ</Text>
+            <TextInput
+              value={`${formValues.latitude}`}
+              style={styles.input}
+              editable={false}
+            />
+          </View>
+          <View style={styles.locationRight}>
+            <TouchableOpacity
+              onPress={() => setModalVisible(true)}
+              style={styles.btn}>
+              <Image
+                resizeMode="cover"
+                source={require('~assets/images/map.png')}
+                style={styles.imgLocation}
+              />
+              <Icon
+                name="navigate-circle-outline"
+                size={50}
+                color={'red'}
+                style={styles.iconLocation}
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
         <Modal
           animationType="slide"
           transparent={true}
@@ -175,11 +207,6 @@ export default Index = () => {
             onPress={() => handleConfirmChange()}
             style={styles.btn}>
             <Text style={styles.txtBtn}>Xác nhận</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => setModalVisible(true)}
-            style={styles.btn}>
-            <Text style={styles.txtBtn}>Chọn lại vị trí</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

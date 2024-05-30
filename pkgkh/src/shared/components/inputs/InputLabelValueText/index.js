@@ -35,7 +35,7 @@ export default Index = props => {
           onChangeText={text => changeText(text)}
           returnKeyType={returnKeyType || 'next'}
           editable={editable || true}
-          onBlur ={onBlur}
+          onBlur={onBlur}
         />
       </View>
     </LabelView>
@@ -53,15 +53,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.padding,
     paddingVertical: Sizes.padding / 4,
     marginHorizontal: Sizes.margin / 4,
-    backgroundColor:Colors.white,
-    borderRadius:Sizes.radius,
+    backgroundColor: Colors.white,
+    borderRadius: Sizes.radius,
   },
   textInput: {
     padding: 0,
-    height:parseSize(35),
+    height: parseSize(35),
     fontFamily: 'Hahmlet-Regular',
     fontSize: 12,
     color: Colors.dark,
-    backgroundColor:Colors.white,
-  }
+    backgroundColor: Colors.white,
+  },
 });

@@ -16,10 +16,7 @@ import {checkActions} from '~reduxCore/reducers';
 export default Index = ({dataLocation, onClose, formValues}) => {
   const {t} = useTranslation();
   const dispatch = useDispatch();
-  /*vị trí hiện tại*/
-  const [lati, setLati] = useState(0);
-  const [longti, setLongti] = useState(0);
-  const [isMap, setIsMap] = useState(false);
+  const [isMap, setIsMap] = useState(true);
   const [listCheckPoint, setListCheckPoint] = useState([]);
   const [locationDetails, setLocationDetails] = useState({
     latitude: parseFloat(formValues.latitude),
@@ -32,6 +29,7 @@ export default Index = ({dataLocation, onClose, formValues}) => {
     cityName: formValues.cityName,
     address: formValues.address,
   });
+  console.log(locationDetails.latitude, locationDetails.longitude);
   /*lưu thay đổi location*/
   const handleLocationChange = value => {
     setLocationDetails(prevLocation => ({
@@ -61,11 +59,15 @@ export default Index = ({dataLocation, onClose, formValues}) => {
 
   /*lấy vị trí hiện tại*/
   useEffect(() => {
-    Geolocation.getCurrentPosition(position => {
-      setLati(position.coords.latitude);
-      setLongti(position.coords.longitude);
-    });
-  }, [lati, longti]);
+    if (locationDetails.latitude === 0 || locationDetails.longitude === 0) {
+      Geolocation.getCurrentPosition(position => {
+        setLocationDetails({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
+    }
+  }, []);
 
   /*fetch api getDS địa điểm check*/
   useEffect(() => {
@@ -88,9 +90,18 @@ export default Index = ({dataLocation, onClose, formValues}) => {
 
   return (
     <View style={{width: '100%', height: '100%'}}>
-      <TouchableOpacity onPress={onClose} style={styles.btnClose}>
-        <Icon name="close" size={35} color={'white'} />
-      </TouchableOpacity>
+      {isMap == false ? (
+        <TouchableOpacity
+          onPress={() => setIsMap(true)}
+          style={styles.btnClose}>
+          <Icon name="close" size={35} color={'white'} />
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={onClose} style={styles.btnClose}>
+          <Icon name="close" size={35} color={'white'} />
+        </TouchableOpacity>
+      )}
+
       {isMap ? (
         <View style={{flex: 1}}>
           <MapView
@@ -101,14 +112,18 @@ export default Index = ({dataLocation, onClose, formValues}) => {
             provider={PROVIDER_GOOGLE}
             style={styles.map}
             region={{
-              latitude: lati,
-              longitude: longti,
-              latitudeDelta: 0.0922,
+              latitude: locationDetails.latitude,
+              longitude: locationDetails.longitude,
+              latitudeDelta: 0.0822,
               longitudeDelta: 0.0421,
             }}>
-            {locationDetails.latitude != null &&
-              locationDetails.longitude != null && (
-                <Marker coordinate={locationDetails} pinColor="#4E41D9" />
+            {locationDetails.latitude != 0 &&
+              locationDetails.longitude != 0 && (
+                <Marker
+                  coordinate={locationDetails}
+                  pinColor="#4E41D9"
+                  style={{zIndex: 1}}
+                />
               )}
             {listCheckPoint.map(item => {
               return (
@@ -125,8 +140,8 @@ export default Index = ({dataLocation, onClose, formValues}) => {
             })}
           </MapView>
           <View style={styles.bottom}>
-            {locationDetails.latitude != null &&
-              locationDetails.longitude != null && (
+            {locationDetails.latitude != 0 &&
+              locationDetails.longitude != 0 && (
                 <TouchableOpacity
                   onPress={() => handleConfirm()}
                   style={styles.btnConfirm}>
