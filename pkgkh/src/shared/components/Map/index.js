@@ -29,7 +29,7 @@ export default Index = ({dataLocation, onClose, formValues}) => {
     cityName: formValues.cityName,
     address: formValues.address,
   });
-  console.log(locationDetails.latitude, locationDetails.longitude);
+
   /*lưu thay đổi location*/
   const handleLocationChange = value => {
     setLocationDetails(prevLocation => ({
@@ -90,20 +90,14 @@ export default Index = ({dataLocation, onClose, formValues}) => {
 
   return (
     <View style={{width: '100%', height: '100%'}}>
-      {isMap == false ? (
-        <TouchableOpacity
-          onPress={() => setIsMap(true)}
-          style={styles.btnClose}>
-          <Icon name="close" size={35} color={'white'} />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity onPress={onClose} style={styles.btnClose}>
-          <Icon name="close" size={35} color={'white'} />
-        </TouchableOpacity>
-      )}
-
       {isMap ? (
         <View style={{flex: 1}}>
+          <View style={styles.header}>
+            <TouchableOpacity style={styles.btnBack} onPress={() => onClose()}>
+              <Icon name="chevron-left" size={40} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.txtHeader}>Map</Text>
+          </View>
           <MapView
             showsMyLocationButton
             showsUserLocation
@@ -139,16 +133,13 @@ export default Index = ({dataLocation, onClose, formValues}) => {
               );
             })}
           </MapView>
-          <View style={styles.bottom}>
-            {locationDetails.latitude != 0 &&
-              locationDetails.longitude != 0 && (
-                <TouchableOpacity
-                  onPress={() => handleConfirm()}
-                  style={styles.btnConfirm}>
-                  <Text style={styles.txtBtn}>Xác nhận điểm check</Text>
-                </TouchableOpacity>
-              )}
-          </View>
+          {locationDetails.latitude != 0 && locationDetails.longitude != 0 && (
+            <TouchableOpacity
+              onPress={() => handleConfirm()}
+              style={styles.btnConfirm}>
+              <Text style={styles.txtBtn}>Xác nhận điểm check</Text>
+            </TouchableOpacity>
+          )}
         </View>
       ) : (
         <View style={styles.chooseAdress}>

@@ -1,7 +1,27 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '~theme';
+import {Colors, parseSize} from '~theme';
 
 export default styles = StyleSheet.create({
+  btnBack: {
+    position: 'absolute',
+    zIndex: 2,
+    marginLeft: 10,
+  },
+  txtHeader: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: 'black',
+    flex: 1,
+    textAlign: 'center',
+  },
+  header: {
+    backgroundColor: Colors.background,
+    height: parseSize(50),
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 10,
+  },
   body: {
     width: '80%',
     height: '50%',
@@ -58,31 +78,12 @@ export default styles = StyleSheet.create({
     fontWeight: '700',
     color: 'white',
   },
-  bottom: {
+  btnConfirm: {
     position: 'absolute',
     zIndex: 1,
-    width: '70%',
-    height: 'auto',
-    left: 10,
-    bottom: 10,
-    gap: 10,
-    alignItems: 'center',
-  },
-  btnClose: {
-    top: 15,
-    left: 10,
-    position: 'absolute',
-    zIndex: 3,
-    width: 40,
-    height: 40,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 10,
-  },
-  btnConfirm: {
+    bottom: 30,
     backgroundColor: '#4E41D9',
-    width: '100%',
+    width: '70%',
     height: 60,
     alignSelf: 'center',
     alignItems: 'center',
