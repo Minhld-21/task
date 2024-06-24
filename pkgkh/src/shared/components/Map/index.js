@@ -99,8 +99,6 @@ export default Index = ({dataLocation, onClose, formValues}) => {
             <Text style={styles.txtHeader}>Map</Text>
           </View>
           <MapView
-            showsMyLocationButton
-            showsUserLocation
             userLocationPriority="balanced"
             onPress={handleMapPress}
             provider={PROVIDER_GOOGLE}
