@@ -1,9 +1,8 @@
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Svg, {Path, Text} from 'react-native-svg';
-
 import styles from './styles';
 const index = () => {
   const SvgComponent = () => (
@@ -19,7 +18,11 @@ const index = () => {
   return (
     <View style={styles.Container}>
       <TouchableOpacity style={styles.btnNavigation}>
-        <Icon name="bell-outline" size={35} color="#6D6D6D" />
+        <Image
+          style={styles.Icon}
+          source={require('../asset/Bell.png')}
+          resizeMode="cover"
+        />
       </TouchableOpacity>
       <View style={styles.btnLongPress}>
         <TouchableOpacity
@@ -31,13 +34,20 @@ const index = () => {
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
             style={styles.btnAccessGradient}>
-            <Icon name="gesture-tap-hold" size={35} color="white" />
+            <Image
+              source={require('../asset/LongPress.png')}
+              resizeMode="cover"
+            />
           </LinearGradient>
         </TouchableOpacity>
         <SvgComponent />
       </View>
       <TouchableOpacity style={styles.btnNavigation}>
-        <Icon name="account-outline" size={35} color="#6D6D6D" />
+        <Image
+          style={styles.Icon}
+          source={require('../asset/Person.png')}
+          resizeMode="cover"
+        />
       </TouchableOpacity>
     </View>
   );

@@ -1,6 +1,16 @@
 import {StyleSheet} from 'react-native';
 
 export default styles = StyleSheet.create({
+  svgBottomBackground: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+  },
+  svgTopBackground: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+  },
   dotLight: {
     width: 48,
     height: 6,
@@ -104,6 +114,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    zIndex: 1,
   },
   txtResulOrderOfday: {
     fontSize: 32,
@@ -111,23 +122,28 @@ export default styles = StyleSheet.create({
     fontStyle: 'normal',
     letterSpacing: 0.5,
     color: '#F9F9FB',
+    zIndex: 1,
   },
   txtOrdorOfday: {
     fontSize: 18,
     fontWeight: '500',
     fontStyle: 'normal',
     color: '#F9F9FB',
+    zIndex: 1,
   },
 
   quantityOrder: {
     borderRadius: 24,
-    paddingHorizontal: 35,
-    paddingVertical: 15,
+    paddingHorizontal: 33,
+    paddingVertical: 27,
     gap: 24,
     justifyContent: 'center',
+    position: 'relative',
+    overflow: 'hidden',
   },
   buttonRight: {
     justifyContent: 'space-between',
+    marginVertical: 3,
   },
   buttonUnder: {
     flexDirection: 'row',
@@ -140,11 +156,11 @@ export default styles = StyleSheet.create({
   },
 
   bottom: {
-    flex: 0.2,
+    flex: 0.3,
     justifyContent: 'flex-end',
   },
   body: {
-    flex: 0.7,
+    flex: 0.6,
   },
   header: {
     flex: 0.1,

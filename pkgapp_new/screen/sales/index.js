@@ -1,8 +1,8 @@
-import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View, Image} from 'react-native';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
-import Svg, {Line} from 'react-native-svg';
+import Svg, {Line, Circle, Defs, Stop} from 'react-native-svg';
 
 import styles from './styles';
 import Navigation from '../Navigation';
@@ -50,6 +50,36 @@ const index = () => {
               <Text style={styles.txtTitle}>Đơn chờ xử lý</Text>
               <Text style={styles.txtResult}>3</Text>
             </View>
+
+            <Svg
+              width="125"
+              height="114"
+              viewBox="0 0 125 114"
+              fill="#168548"
+              style={styles.svgTopBackground}>
+              <Circle
+                cx="82.5677"
+                cy="30.5678"
+                r="82.4291"
+                transform="rotate(-162.268 82.5677 30.5678)"
+                fillOpacity="0.5"
+              />
+            </Svg>
+
+            <Svg
+              width="141"
+              height="109"
+              viewBox="0 0 141 109"
+              fill="#168548"
+              style={styles.svgBottomBackground}>
+              <Circle
+                cx="48.6669"
+                cy="87.667"
+                r="83.5"
+                transform="rotate(-91.146 48.6669 87.667)"
+                fill-opacity="0.5"
+              />
+            </Svg>
           </LinearGradient>
           <View style={styles.buttonRight}>
             <TouchableOpacity
@@ -57,10 +87,13 @@ const index = () => {
               style={[styles.button, isPressed === 1 && styles.buttonPressed]}
               onPressIn={() => handlePressIn(1)}
               onPressOut={handlePressOut}>
-              <Icon
-                name="qrcode"
-                size={24}
-                color={isPressed === 1 ? '#198B4D' : '#454545'}
+              <Image
+                source={
+                  isPressed === 1
+                    ? require('../asset/QRPressed.png')
+                    : require('../asset/QR.png')
+                }
+                resizeMode="cover"
               />
               <Text
                 style={[
@@ -76,11 +109,15 @@ const index = () => {
               onPressIn={() => handlePressIn(2)}
               onPressOut={handlePressOut}
               style={[styles.button, isPressed === 2 && styles.buttonPressed]}>
-              <Icon
-                name="plus-circle-outline"
-                size={24}
-                color={isPressed === 2 ? '#198B4D' : '#454545'}
+              <Image
+                source={
+                  isPressed === 2
+                    ? require('../asset/CreateOrderPressed.png')
+                    : require('../asset/CreateOrder.png')
+                }
+                resizeMode="cover"
               />
+
               <Text
                 style={[
                   styles.txtButton,
@@ -98,11 +135,15 @@ const index = () => {
             onPressIn={() => handlePressIn(3)}
             onPressOut={handlePressOut}
             style={[styles.button, isPressed === 3 && styles.buttonPressed]}>
-            <Icon
-              name="printer-outline"
-              size={24}
-              color={isPressed === 3 ? '#198B4D' : '#454545'}
+            <Image
+              source={
+                isPressed === 3
+                  ? require('../asset/PrinterPressed.png')
+                  : require('../asset/Printer.png')
+              }
+              resizeMode="cover"
             />
+
             <Text
               style={[
                 styles.txtButton,
@@ -117,11 +158,15 @@ const index = () => {
             onPressIn={() => handlePressIn(4)}
             onPressOut={handlePressOut}
             style={[styles.button, isPressed === 4 && styles.buttonPressed]}>
-            <Icon
-              name="moped-outline"
-              size={24}
-              color={isPressed === 4 ? '#198B4D' : '#454545'}
+            <Image
+              source={
+                isPressed === 4
+                  ? require('../asset/DeliveryPressed.png')
+                  : require('../asset/Delivery.png')
+              }
+              resizeMode="cover"
             />
+
             <Text
               style={[
                 styles.txtButton,
@@ -136,11 +181,15 @@ const index = () => {
             onPressIn={() => handlePressIn(5)}
             onPressOut={handlePressOut}
             style={[styles.button, isPressed === 5 && styles.buttonPressed]}>
-            <Icon
-              name="note-multiple-outline"
-              size={24}
-              color={isPressed === 5 ? '#198B4D' : '#454545'}
+            <Image
+              source={
+                isPressed === 5
+                  ? require('../asset/BillPressed.png')
+                  : require('../asset/Bill.png')
+              }
+              resizeMode="cover"
             />
+
             <Text
               style={[
                 styles.txtButton,
@@ -177,16 +226,15 @@ const index = () => {
           </Svg>
           <Text style={styles.txtContent}>Áp dụng tại tất cả chi nhánh</Text>
         </View>
-
-        <View style={styles.dotsContainer}>
-          {dotList.map((dot, index) => (
-            <View
-              key={index}
-              style={dotLight === index ? styles.dotLight : styles.dot}
-            />
-          ))}
-        </View>
       </ScrollView>
+      <View style={styles.dotsContainer}>
+        {dotList.map((dot, index) => (
+          <View
+            key={index}
+            style={dotLight === index ? styles.dotLight : styles.dot}
+          />
+        ))}
+      </View>
       <View style={styles.bottom}>
         <Navigation />
       </View>

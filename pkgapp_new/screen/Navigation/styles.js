@@ -32,7 +32,7 @@ export default styles = StyleSheet.create({
     borderRadius: 100,
     borderWidth: 2,
     borderColor: '#B9BBC6',
-    top: -25,
+    bottom: 50,
     backgroundColor: 'white',
   },
   btnLongPress: {
@@ -49,6 +49,11 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 0.4,
+    height: 40,
+  },
+  Icon: {
+    width: 22.5,
+    height: 27.5,
   },
   Container: {
     paddingVertical: 25,
@@ -57,6 +62,6 @@ export default styles = StyleSheet.create({
     backgroundColor: '#F6F6F6',
     justifyContent: 'center',
     flexDirection: 'row',
-    bottom: 5,
+    bottom: 20,
   },
 });
