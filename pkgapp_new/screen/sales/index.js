@@ -50,36 +50,19 @@ const index = () => {
               <Text style={styles.txtTitle}>Đơn chờ xử lý</Text>
               <Text style={styles.txtResult}>3</Text>
             </View>
+            <LinearGradient
+              colors={['#168548', '#05AA50']}
+              start={{x: 1, y: 0}}
+              end={{x: 0, y: 0}}
+              style={styles.svgTopBackground}
+            />
 
-            <Svg
-              width="125"
-              height="114"
-              viewBox="0 0 125 114"
-              fill="#168548"
-              style={styles.svgTopBackground}>
-              <Circle
-                cx="82.5677"
-                cy="30.5678"
-                r="82.4291"
-                transform="rotate(-162.268 82.5677 30.5678)"
-                fillOpacity="0.5"
-              />
-            </Svg>
-
-            <Svg
-              width="141"
-              height="109"
-              viewBox="0 0 141 109"
-              fill="#168548"
-              style={styles.svgBottomBackground}>
-              <Circle
-                cx="48.6669"
-                cy="87.667"
-                r="83.5"
-                transform="rotate(-91.146 48.6669 87.667)"
-                fill-opacity="0.5"
-              />
-            </Svg>
+            <LinearGradient
+              colors={['#168548', '#05AA50']}
+              start={{x: 0, y: 1}}
+              end={{x: 1, y: 0}}
+              style={styles.svgBottomBackground}
+            />
           </LinearGradient>
           <View style={styles.buttonRight}>
             <TouchableOpacity

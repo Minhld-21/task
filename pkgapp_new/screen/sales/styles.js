@@ -3,13 +3,19 @@ import {StyleSheet} from 'react-native';
 export default styles = StyleSheet.create({
   svgBottomBackground: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
+    bottom: -50,
+    left: -30,
+    width: 167,
+    height: 167,
+    borderRadius: 100,
   },
   svgTopBackground: {
     position: 'absolute',
-    top: 0,
-    right: 0,
+    top: -30,
+    right: -30,
+    width: 145,
+    height: 145,
+    borderRadius: 100,
   },
   dotLight: {
     width: 48,
@@ -136,7 +142,7 @@ export default styles = StyleSheet.create({
     borderRadius: 24,
     paddingHorizontal: 33,
     paddingVertical: 27,
-    gap: 24,
+    gap: 20,
     justifyContent: 'center',
     position: 'relative',
     overflow: 'hidden',
